@@ -15,10 +15,12 @@ Aras 11.0 SP11
 
 ## Concept
 
-Import package tbd.
+1. Import package adds an ItemType for **Resource** and an additional Relationship Tab in Activity 2.
+2. Package contains Methods for a simple date range check.
 
+![aras-pm-resource-mgmt](./Screenshots/Resource_Item.png)
 
-![aras-pm-resource-mgmt](./Screenshots/Ressource_Item.png)
+Tree grid view is not included in Import Package.
 
 
 ![aras-pm-resource-mgmt](./Screenshots/Ressource_Relationship.png)
