@@ -1,0 +1,39 @@
+﻿<AML>
+ <Item type="Method" id="BE3EB127AE6942F8BF34FA22038A6B92" action="add">
+  <comments>Check if Resource is available</comments>
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[Innovator inn = this.getInnovator();
+string thisType = this.getType(); // BPL_PM_Activity2_Ressource
+
+string source_id = this.getProperty("source_id");
+
+// Get Activity
+Item act = this.newItem("Activity2", "get");
+act.setID(source_id);
+act.setAttribute("select", "date_start_sched, date_due_sched, name");
+act = act.apply();
+if (act.isError()) {
+    return inn.newError(act.getErrorString());
+}
+
+string related_id = this.getProperty("related_id");
+string planned_start = act.getProperty("date_start_sched");
+string planned_due = act.getProperty("date_due_sched");
+string act_name = act.getProperty("name");
+
+// Check if related Resource is in use
+string body = "<id_>" + related_id + "</id_>" +
+                "<start_date_>" + planned_start + "</start_date_>" +
+                "<end_date_>" + planned_due + "</end_date_>";
+            
+Item result = inn.applyMethod("BPL_PM_Resource_checkDates",body); 
+
+if (result.isError()) {
+    return inn.newError(result.getErrorString());
+}
+
+return null;]]></method_code>
+  <method_type>C#</method_type>
+  <name>BPL_PM_Resource_onBeforeAdd</name>
+ </Item>
+</AML>

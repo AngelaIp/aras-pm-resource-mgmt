@@ -1,0 +1,116 @@
+﻿<AML>
+ <Item type="ItemType" id="9A96367ED661412681B412393B10431B" action="add">
+  <allow_private_permission>1</allow_private_permission>
+  <auto_search>1</auto_search>
+  <class_structure><![CDATA[<class id="9A96367ED661412681B412393B10431B"><class id="CBF5B0CD31D64B57A8D84347E1D21D1F" name="Equipment" /><class id="1007A8669F494142A4DCE395984D8891" name="Employee" /></class>]]></class_structure>
+  <default_page_size>25</default_page_size>
+  <enforce_discovery>1</enforce_discovery>
+  <hide_where_used>0</hide_where_used>
+  <implementation_type>table</implementation_type>
+  <instance_data>BPL_PM_RESOURCE</instance_data>
+  <is_dependent>0</is_dependent>
+  <is_relationship>0</is_relationship>
+  <is_versionable>0</is_versionable>
+  <label xml:lang="en">Resource</label>
+  <label_plural xml:lang="en">Resources</label_plural>
+  <large_icon>../Images/QualityTool.svg</large_icon>
+  <open_icon>../Images/QualityTool.svg</open_icon>
+  <revisions keyed_name="Default" type="Revision">7FE395DD8B9F4E1090756A34B733D75E</revisions>
+  <show_parameters_tab>1</show_parameters_tab>
+  <structure_view>tabs on</structure_view>
+  <unlock_on_logout>0</unlock_on_logout>
+  <use_src_access>0</use_src_access>
+  <name>BPL_PM_Resource</name>
+  <Relationships>
+   <Item type="Property" id="4E6B6ACD49954F6FA8BD9024720350D1" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>20</sort_order>
+    <source_id keyed_name="BPL_PM_Resource" type="ItemType" name="BPL_PM_Resource">9A96367ED661412681B412393B10431B</source_id>
+    <stored_length>64</stored_length>
+    <track_history>0</track_history>
+    <name>name</name>
+   </Item>
+   <Item type="View" id="8A2EB7AD7B884C8694B61D4858D3C95D" action="add">
+    <client>js</client>
+    <related_id keyed_name="BPL_PM_Resource" type="Form">9DFD8C4BD1984B68B3B266DD95DFC527</related_id>
+    <role keyed_name="World" type="Identity">
+     <Item type="Identity" action="get" select="id">
+      <name>World</name>
+     </Item>
+    </role>
+    <show_ssvc>0</show_ssvc>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="BPL_PM_Resource" type="ItemType" name="BPL_PM_Resource">9A96367ED661412681B412393B10431B</source_id>
+    <type>default</type>
+   </Item>
+   <Item type="TOC Access" id="0FCAC9BA2E664928B1F8D9024B10C4CC" action="add">
+    <related_id keyed_name="Project Management" type="Identity">5E12CD824411477AA56D9F539FA295EB</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="BPL_PM_Resource" type="ItemType" name="BPL_PM_Resource">9A96367ED661412681B412393B10431B</source_id>
+    <category>Portfolio</category>
+   </Item>
+   <Item type="Can Add" id="B1A23D8E0CF741288F3A8EF54E291EBC" action="add">
+    <can_add>1</can_add>
+    <related_id keyed_name="Project Management" type="Identity">5E12CD824411477AA56D9F539FA295EB</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="BPL_PM_Resource" type="ItemType" name="BPL_PM_Resource">9A96367ED661412681B412393B10431B</source_id>
+   </Item>
+   <Item type="Allowed Permission" id="594780F95C6947938E5C0D22E089AAB3" action="add">
+    <is_default>1</is_default>
+    <related_id keyed_name="Project" type="Permission">1E63D742A5794F8DB995A5298A202C4C</related_id>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="BPL_PM_Resource" type="ItemType" name="BPL_PM_Resource">9A96367ED661412681B412393B10431B</source_id>
+   </Item>
+  </Relationships>
+ </Item>
+ <Item type="ItemType" id="9A96367ED661412681B412393B10431B" action="edit">
+  <Relationships>
+   <Item type="Property" id="939B6867703F4986ACFE4587DF5A47C9" action="add">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>1</is_indexed>
+    <is_keyed>1</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>1</is_required>
+    <keyed_name_order>1</keyed_name_order>
+    <order_by>1</order_by>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>10</sort_order>
+    <source_id keyed_name="BPL_PM_Resource" type="ItemType" name="BPL_PM_Resource">9A96367ED661412681B412393B10431B</source_id>
+    <stored_length>10</stored_length>
+    <track_history>0</track_history>
+    <name>item_number</name>
+   </Item>
+   <Item type="Property" action="edit" where="source_id='9A96367ED661412681B412393B10431B' and name='classification'">
+    <column_alignment>left</column_alignment>
+    <data_type>string</data_type>
+    <is_hidden>0</is_hidden>
+    <is_hidden2>0</is_hidden2>
+    <is_indexed>0</is_indexed>
+    <is_keyed>0</is_keyed>
+    <is_multi_valued>0</is_multi_valued>
+    <is_required>0</is_required>
+    <label xml:lang="en">Classification</label>
+    <range_inclusive>0</range_inclusive>
+    <readonly>0</readonly>
+    <sort_order>128</sort_order>
+    <source_id keyed_name="BPL_PM_Resource" type="ItemType" name="BPL_PM_Resource">9A96367ED661412681B412393B10431B</source_id>
+    <stored_length>512</stored_length>
+    <track_history>0</track_history>
+    <name>classification</name>
+   </Item>
+  </Relationships>
+ </Item>
+</AML>

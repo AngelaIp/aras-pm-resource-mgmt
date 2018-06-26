@@ -1,0 +1,90 @@
+﻿<AML>
+ <Item type="Method" id="E6AE1246D72647FAA78A490061051A72" action="add">
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[Innovator inn = this.getInnovator();
+//CultureInfo LocalCultureInfo = new CultureInfo("de-DE");
+
+// Case 1: Resource is not used at all -> add new item
+// Case 2: Resource is already used, but at a different time -> add new item
+// Case 3: Resource is already used, but at the same time -> return error
+
+// Parameters passed with the Method call
+string thisId = this.getProperty("id_"); // id of Ressource
+string startDate = this.getProperty("start_date_"); 
+string endDate = this.getProperty("end_date_"); 
+
+DateTime parsedTarget = DateTime.Parse(startDate);
+DateTime parsedDue = DateTime.Parse(endDate);
+DateRange ActivityRange = new DateRange(parsedTarget, parsedDue); // set Range
+
+// Check if Ressource is in use
+Item checkUsage = inn.newItem("BPL_Activity2_Resource","get");
+checkUsage.setProperty("related_id", thisId); // check these ressource
+checkUsage.setAttribute("select", "source_id(name, date_start_sched, date_due_sched), id"); // search for Activites that use the selected Ressource
+checkUsage = checkUsage.apply();
+
+// if error -> no Item found -> Resource is not used at all -> no conflict
+
+if (!checkUsage.isError())
+{
+    Item actNodes =  checkUsage.getItemsByXPath("//Item[@type='Activity2']");
+    int actCount = actNodes.getItemCount();
+    
+    for (int i = 0; i < actCount; i++) 
+    {
+        Item tmpItem = actNodes.getItemByIndex(i);
+        string fromDate =  tmpItem.getProperty("date_start_sched");
+        string toDate =  tmpItem.getProperty("date_due_sched");
+        string name =  tmpItem.getProperty("name");
+      
+        DateTime parsedFromDate = DateTime.Parse(fromDate);
+        DateTime parsedToDate = DateTime.Parse(toDate); 
+        DateRange rangeToCheck = new DateRange(parsedFromDate, parsedToDate); // set Range
+        bool inUse = ActivityRange.conflicts(rangeToCheck);
+          
+        if (inUse == true)
+        {
+            // return inn.newResult("true"); // date conflict
+            return inn.newError("Ressource is not avaiable for the selected date range. It´s used by Activity " + name);
+        } 
+           
+    } 
+}
+return inn.newResult("false"); // no date conflict
+}
+
+public interface IRange<T>
+{
+    T StartDate {get;}
+    T EndDate {get;}
+    bool conflicts(IRange<T>range);
+}
+
+public class DateRange : IRange<DateTime>         
+{
+    public DateRange(DateTime start, DateTime end)
+    {
+        StartDate = start;
+        EndDate = end;
+    }
+
+    public DateTime StartDate 
+    { 
+        get; 
+        private set; 
+    }
+    public DateTime EndDate 
+    { 
+        get; 
+        private set; 
+    }
+
+      public bool conflicts(IRange<DateTime>range)
+    {
+        return (StartDate <= range.StartDate) && (range.EndDate <= EndDate);
+    }
+]]></method_code>
+  <method_type>C#</method_type>
+  <name>BPL_PM_Resource_checkDates</name>
+ </Item>
+</AML>

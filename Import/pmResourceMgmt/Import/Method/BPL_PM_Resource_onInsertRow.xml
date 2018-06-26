@@ -1,0 +1,34 @@
+﻿<AML>
+ <Item type="Method" id="A759BA2F068F4BE3911842D9C1913460" action="add">
+  <comments>Check if Resource is available</comments>
+  <execution_allowed_to keyed_name="World" type="Identity">A73B655731924CD0B027E4F4D5FCC0A9</execution_allowed_to>
+  <method_code><![CDATA[// Activity
+var actItem = typeof(parent.document.thisItem) == "object" ? parent.document.thisItem : parent.thisItem;
+
+// Relationship
+var prt = typeof(parent.document.item) == "object" ? parent.document : parent.parent;
+var relshipNd = prt.item.selectSingleNode("Relationships/Item[@id='" + relationshipID + "' and related_id/Item]");
+if (!relshipNd) return;
+var relatedNd = relshipNd.selectSingleNode("related_id/Item");
+
+// Get Date Values from Activity Form
+var dateStart = actItem.getProperty("date_start_sched",""); 
+var dateEnd = actItem.getProperty("date_due_sched",""); 
+
+var res_no = aras.getItemProperty(relatedNd, "item_number", undefined); 
+var res_name = aras.getItemProperty(relatedNd, "name", undefined); 
+var res_id = aras.getItemProperty(relatedNd, "id", undefined); // id of selected Resource
+
+//var thisRel = actItem.getItemsByXPath("//Item[@id='" + relationshipID + "']").getItemByIndex(0);
+//var relationshipName = thisRel.getType(); // get name of Relationship
+var body =  "<id_>" + res_id + "</id_>" +
+            "<start_date_>" + dateStart + "</start_date_>" +
+            "<end_date_>" + dateEnd  + "</end_date_>";
+            
+var result = aras.applyMethod("BPL_PM_Resource_checkDates",body); 
+
+return null;]]></method_code>
+  <method_type>JavaScript</method_type>
+  <name>BPL_PM_Resource_onInsertRow</name>
+ </Item>
+</AML>
